@@ -1,0 +1,22 @@
+.input-area {
+    display: flex;
+    margin-top: 10px;
+}
+
+.input-area input[type="text"] {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-submit {
+  padding: 8px 15px;
+  margin-left: 10px;
+  background-color: rgb(190, 96, 160);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  

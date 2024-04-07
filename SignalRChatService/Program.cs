@@ -1,9 +1,27 @@
+using SignalRChatService.DataService;
 using SignalRChatService.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var corsPolicyName = "ClientCors";
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<List<string>>();
+
 // Add services to the container.
 builder.Services.AddSignalR();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicyName, corsBuilder =>
+    {
+        corsBuilder
+        .WithOrigins(string.Join(", ", allowedOrigins))
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials(); // Allow credentials (cookies, authorization headers, etc., needed also for hubs without auth)
+    });
+});
+
+builder.Services.AddSingleton<SharedConnectionsDB>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(corsPolicyName);
 
 app.UseAuthorization();
 

@@ -3,13 +3,14 @@ import './WaitingRoomStyles.css'
 
 const WaitingRoom = ({ joinChatRoom }) => {
 
-    const[username, setUsername] = useState();
-    const[chatroom, setChatroom] = useState();
+    const[username, setUsername] = useState('');
+    const[chatroom, setChatroom] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Username:", username);
         console.log("Chatroom:", chatroom);
+        joinChatRoom(username, chatroom)
       };
 
       return (
@@ -38,7 +39,6 @@ const WaitingRoom = ({ joinChatRoom }) => {
                 placeholder="Enter chatroom name"
                 value={chatroom}
                 onChange={(e) => setChatroom(e.target.value)}
-                required
               />
             </div>
             <button type="submit">Join Chatroom</button>
